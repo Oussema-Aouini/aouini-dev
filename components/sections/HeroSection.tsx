@@ -243,7 +243,7 @@ export function HeroSection() {
                 className="inline-flex rounded-lg"
               >
                 <Link
-                  href="/cv/Oussema_Aouini_CV.pdf"
+                  href="/cv/Oussema_Aouini_CV-eng.pdf"
                   download
                   target="_blank"
                   rel="noopener noreferrer"
