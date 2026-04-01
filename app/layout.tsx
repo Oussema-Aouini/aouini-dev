@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-bg-primary font-body text-text-primary">
         <div className="page-noise" aria-hidden />
         {children}
+        <Analytics />
       </body>
     </html>
   );
