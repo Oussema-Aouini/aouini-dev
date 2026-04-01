@@ -70,6 +70,19 @@ function welcomeLines(): HistLine[] {
         </p>
       ),
     },
+    {
+      id: uid(),
+      node: (
+        <a
+          href={personalInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="terminal-easter-cta mb-3 inline-flex items-center rounded-md px-3 py-1.5 text-xs font-semibold sm:text-sm"
+        >
+          Explore more here →
+        </a>
+      ),
+    },
   ];
 }
 
