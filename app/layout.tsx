@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default function RootLayout({
         <div className="page-noise" aria-hidden />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
