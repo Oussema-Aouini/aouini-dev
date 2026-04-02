@@ -1,17 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { DeferredAnalytics } from "@/components/DeferredAnalytics";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  preload: true,
+  display: "swap",
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  preload: true,
+  display: "swap",
 });
 
 const siteTitle = "Oussema Aouini — AI & Web Developer";
@@ -57,8 +60,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-bg-primary font-body text-text-primary">
         <div className="page-noise" aria-hidden />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <DeferredAnalytics />
       </body>
     </html>
   );

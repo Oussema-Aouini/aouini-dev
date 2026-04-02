@@ -1,12 +1,7 @@
 "use client";
 
 import BootScreen from "@/components/BootScreen";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { ContactSection } from "@/components/sections/ContactSection";
-import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { SkillsSection } from "@/components/sections/SkillsSection";
 import { SceneHost } from "@/components/three/SceneHost";
 import { BackToTopButton } from "@/components/ui/BackToTopButton";
 import { DocumentTitleSync } from "@/components/ui/DocumentTitleSync";
@@ -17,6 +12,32 @@ import { TerminalOverlay } from "@/components/terminal/TerminalOverlay";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+
+// Lazy load all sections except HeroSection for faster LCP
+const AboutSection = dynamic(
+  () => import("@/components/sections/AboutSection").then(m => ({ default: m.AboutSection })),
+  { loading: () => <div className="min-h-[32vh]" aria-hidden /> },
+);
+
+const ExperienceSection = dynamic(
+  () => import("@/components/sections/ExperienceSection").then(m => ({ default: m.ExperienceSection })),
+  { loading: () => <div className="min-h-[48vh]" aria-hidden /> },
+);
+
+const ProjectsSection = dynamic(
+  () => import("@/components/sections/ProjectsSection").then(m => ({ default: m.ProjectsSection })),
+  { loading: () => <div className="min-h-[56vh]" aria-hidden /> },
+);
+
+const SkillsSection = dynamic(
+  () => import("@/components/sections/SkillsSection").then(m => ({ default: m.SkillsSection })),
+  { loading: () => <div className="min-h-[48vh]" aria-hidden /> },
+);
+
+const ContactSection = dynamic(
+  () => import("@/components/sections/ContactSection").then(m => ({ default: m.ContactSection })),
+  { loading: () => <div className="min-h-[28vh]" aria-hidden /> },
+);
 
 const ChatSection = dynamic(
   () => import("@/components/sections/ChatSection"),
