@@ -10,8 +10,8 @@ import {
 } from "react";
 
 const SESSION_KEY = "aouini-boot-shown";
-const TYPE_MS = 40;
-const AUTO_CONTINUE_MS = 1800;
+const TYPE_MS = 25;
+const AUTO_CONTINUE_MS = 800;
 
 const LINES: { text: string; pauseAfter: number }[] = [
   { text: "> Initializing AOUINI.DEV...", pauseAfter: 600 },
