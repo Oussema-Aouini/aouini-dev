@@ -4,6 +4,7 @@ import BootScreen from "@/components/BootScreen";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SceneHost } from "@/components/three/SceneHost";
 import { AIAssistantButton } from "@/components/ui/AIAssistantButton";
+import { ChatModal } from "@/components/ui/ChatModal";
 import { BackToTopButton } from "@/components/ui/BackToTopButton";
 import { DocumentTitleSync } from "@/components/ui/DocumentTitleSync";
 import { SectionTransitionFx } from "@/components/ui/SectionTransitionFx";
@@ -45,15 +46,12 @@ const ChatSection = dynamic(
   { loading: () => <div className="min-h-[24vh]" aria-hidden /> },
 );
 
-function scrollToChat() {
-  document
-    .getElementById("chat")
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
+
 
 export default function Home() {
   const [showPortfolio, setShowPortfolio] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <>
@@ -70,8 +68,9 @@ export default function Home() {
         isOpen={terminalOpen}
         onClose={() => setTerminalOpen(false)}
       />
+      <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
       <TerminalButton onOpen={() => setTerminalOpen(true)} />
-      <AIAssistantButton onOpen={scrollToChat} />
+      <AIAssistantButton onOpen={() => setChatOpen(true)} />
       <BackToTopButton />
       <main className="relative z-10 min-h-screen flex-1 bg-transparent font-body text-text-primary">
         {showPortfolio && (
