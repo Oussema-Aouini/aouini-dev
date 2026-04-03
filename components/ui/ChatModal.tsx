@@ -13,18 +13,18 @@ type ChatMessage = {
 };
 
 const SUGGESTION_CHIPS = [
-  "What projects has he built? ??",
-  "Tell me about Nomos ??",
-  "What'\''s his tech stack? ??",
-  "Is he open to internships? ??",
-  "What'\''s his experience with NLP? ??",
-  "How can I contact him? ??",
+  "What projects has he built?",
+  "Tell me about Nomos",
+  "What's his tech stack?",
+  "Is he open to internships?",
+  "What's his experience with NLP?",
+  "How can I contact him?",
 ] as const;
 
 const INITIAL_MESSAGE: ChatMessage = {
   role: "assistant",
   content:
-    "Hi! I'\''m Oussema'\''s AI assistant. Ask me anything about his projects, skills, experience, or availability. I'\''m here to help! ?",
+    "Hi! I'm Oussema's AI assistant. Ask me anything about his projects, skills, experience, or availability. I'm here to help!",
   timestamp: new Date(),
 };
 
@@ -142,7 +142,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
           botResponse += token;
           applyText(botResponse);
           if (token.trim().length > 0) {
-            await wait(14);
+            await wait(20);
           }
         }
       }
@@ -154,7 +154,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
           botResponse += token;
           applyText(botResponse);
           if (token.trim().length > 0) {
-            await wait(14);
+            await wait(20);
           }
         }
       }
@@ -189,25 +189,26 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items'\''justify-center items-end sm:items-center p-4"
+          className="fixed inset-0 z-[100]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
+          <div className="absolute inset-0 bg-[#02040a]/45 backdrop-blur-[1px]" aria-hidden />
           <motion.div
-            className="relative w-full max-w-md max-h-[85vh] sm:max-h-96 rounded-2xl border border-accent-cyan/30 bg-gradient-to-b from-[rgba(10,15,30,0.95)] to-[rgba(10,15,30,0.98)] shadow-2xl backdrop-blur-xl flex flex-col overflow-hidden"
-            initial={{ scale: 0.8, opacity: 0, y: 40 }}
+            className="pointer-events-auto fixed bottom-20 right-4 flex max-h-[70vh] w-[min(92vw,22rem)] flex-col overflow-hidden rounded-2xl border border-accent-cyan/30 bg-gradient-to-b from-[rgba(10,15,30,0.96)] to-[rgba(10,15,30,0.99)] shadow-2xl backdrop-blur-xl sm:bottom-24 sm:right-6 sm:max-h-[78vh] sm:w-[24rem]"
+            initial={{ scale: 0.85, opacity: 0, y: 24, x: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 40 }}
+            exit={{ scale: 0.85, opacity: 0, y: 24, x: 12 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-accent-cyan/20 px-4 py-3 sm:px-5 sm:py-4">
+            <div className="flex items-center justify-between border-b border-accent-cyan/20 px-4 py-3 sm:px-4 sm:py-3.5">
               <div className="flex items-center gap-2.5">
                 <div className="h-2 w-2 rounded-full bg-accent-cyan animate-pulse" />
-                <h3 className="text-sm font-semibold text-accent-cyan sm:text-base">
+                <h3 className="text-sm font-semibold text-accent-cyan">
                   AI Assistant
                 </h3>
               </div>
@@ -216,14 +217,14 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                 className="flex items-center justify-center h-8 w-8 rounded-full hover:bg-accent-cyan/10 transition-colors"
                 aria-label="Close chat"
               >
-                <FaTimes size={16} className="text-text-muted hover:text-accent-cyan" />
+                <FaTimes size={15} className="text-text-muted hover:text-accent-cyan" />
               </button>
             </div>
 
             {/* Messages */}
             <div
               ref={messagesScrollRef}
-              className="flex-1 overflow-y-auto space-y-3 px-4 py-4 sm:px-5 scroll-smooth"
+              className="flex-1 overflow-y-auto space-y-3 px-4 py-4 sm:px-4 scroll-smooth"
             >
               {messages.map((msg, idx) => (
                 <motion.div
@@ -235,7 +236,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                 >
                   {msg.role === "assistant" && (
                     <div className="h-6 w-6 rounded-full bg-accent-cyan/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-xs">??</span>
+                      <span className="text-[10px] font-semibold tracking-wide text-accent-cyan">AI</span>
                     </div>
                   )}
                   <div
@@ -261,7 +262,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
               {isLoading && (
                 <div className="flex gap-2.5 justify-start">
                   <div className="h-6 w-6 rounded-full bg-accent-cyan/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-xs">??</span>
+                    <span className="text-[10px] font-semibold tracking-wide text-accent-cyan">AI</span>
                   </div>
                   <div className="bg-accent-cyan/10 text-text-primary rounded-lg rounded-bl-none px-3 py-2 flex gap-1">
                     <span className="w-2 h-2 rounded-full bg-accent-cyan animate-bounce" />
