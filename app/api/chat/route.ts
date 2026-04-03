@@ -22,8 +22,8 @@ EDUCATION:
    public engineering school in Tunisia, part of the
    University of Manouba. It offers a 3-year engineering
    cycle (Cycle Ingénieur) in various fields including
-   computer science, industrial engineering, and
-   information systems. MSE is known for its strong
+   computer science, industrial engineering,
+   information systems and Ecology Engineering. MSE is known for its strong
    emphasis on applied engineering, research, and
    industry partnerships.
    What Oussema studies there: Computer engineering with
