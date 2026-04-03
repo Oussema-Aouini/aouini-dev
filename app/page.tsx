@@ -64,13 +64,21 @@ export default function Home() {
           <BootScreen key="boot" onComplete={() => setShowPortfolio(true)} />
         )}
       </AnimatePresence>
-      <TerminalOverlay
-        isOpen={terminalOpen}
-        onClose={() => setTerminalOpen(false)}
-      />
-      <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
-      <TerminalButton onOpen={() => setTerminalOpen(true)} />
-      <AIAssistantButton onOpen={() => setChatOpen(true)} />
+      {showPortfolio && (
+        <>
+          <TerminalOverlay
+            isOpen={terminalOpen}
+            onClose={() => setTerminalOpen(false)}
+          />
+          <ChatModal
+            isOpen={chatOpen}
+            onClose={() => setChatOpen(false)}
+            fabPlacement="bottom"
+          />
+          <TerminalButton onOpen={() => setTerminalOpen(true)} />
+          <AIAssistantButton onOpen={() => setChatOpen(true)} placement="bottom" />
+        </>
+      )}
       <BackToTopButton />
       <main className="relative z-10 min-h-screen flex-1 bg-transparent font-body text-text-primary">
         {showPortfolio && (

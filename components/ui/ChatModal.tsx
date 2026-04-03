@@ -2,7 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaBrain, FaPaperPlane, FaTimes } from "react-icons/fa";
+
+import { cn } from "@/lib/utils";
 
 type MessageRole = "user" | "assistant";
 
@@ -45,9 +47,15 @@ function formatTime(date: Date) {
 export type ChatModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  /** `mid`: dock beside a vertically centered FAB. `bottom`: above a bottom-right FAB. */
+  fabPlacement?: "mid" | "bottom";
 };
 
-export function ChatModal({ isOpen, onClose }: ChatModalProps) {
+export function ChatModal({
+  isOpen,
+  onClose,
+  fabPlacement = "bottom",
+}: ChatModalProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -195,120 +203,165 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
-          <div className="absolute inset-0 bg-[#02040a]/45 backdrop-blur-[1px]" aria-hidden />
+          <div
+            className="absolute inset-0 bg-[#030712]/55 backdrop-blur-sm"
+            aria-hidden
+          />
           <motion.div
-            className="pointer-events-auto fixed bottom-20 right-4 flex max-h-[70vh] w-[min(92vw,22rem)] flex-col overflow-hidden rounded-2xl border border-accent-cyan/30 bg-gradient-to-b from-[rgba(10,15,30,0.96)] to-[rgba(10,15,30,0.99)] shadow-2xl backdrop-blur-xl sm:bottom-24 sm:right-6 sm:max-h-[78vh] sm:w-[24rem]"
-            initial={{ scale: 0.85, opacity: 0, y: 24, x: 12 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.85, opacity: 0, y: 24, x: 12 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            className={cn(
+              "pointer-events-auto chat-modal-shell fixed z-[101] flex max-h-[min(78vh,38rem)] w-[min(94vw,26rem)] flex-col overflow-hidden rounded-3xl",
+              "top-auto translate-y-0 right-5 bottom-24 sm:right-6 sm:bottom-28",
+            )}
+            initial={{ scale: 0.88, opacity: 0, y: 28, x: 8 }}
+            animate={{ scale: 1, opacity: 1, y: 0, x: 0 }}
+            exit={{ scale: 0.88, opacity: 0, y: 28, x: 8 }}
+            transition={{ type: "spring", stiffness: 280, damping: 24 }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-accent-cyan/20 px-4 py-3 sm:px-4 sm:py-3.5">
-              <div className="flex items-center gap-2.5">
-                <div className="h-2 w-2 rounded-full bg-accent-cyan animate-pulse" />
-                <h3 className="text-sm font-semibold text-accent-cyan">
-                  AI Assistant
-                </h3>
-              </div>
-              <button
-                onClick={onClose}
-                className="flex items-center justify-center h-8 w-8 rounded-full hover:bg-accent-cyan/10 transition-colors"
-                aria-label="Close chat"
-              >
-                <FaTimes size={15} className="text-text-muted hover:text-accent-cyan" />
-              </button>
-            </div>
-
-            {/* Messages */}
-            <div
-              ref={messagesScrollRef}
-              className="flex-1 overflow-y-auto space-y-3 px-4 py-4 sm:px-4 scroll-smooth"
-            >
-              {messages.map((msg, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+            <div className="flex min-h-0 flex-1 flex-col rounded-[inherit] border border-accent-cyan/30 bg-gradient-to-b from-[rgba(12,18,38,0.97)] via-[rgba(8,12,26,0.98)] to-[rgba(6,10,22,0.99)] shadow-[0_28px_80px_rgba(0,0,0,0.55),0_0_0_1px_rgba(99,179,237,0.12),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl">
+              {/* Header */}
+              <div className="relative flex shrink-0 items-start justify-between gap-3 border-b border-white/[0.07] px-4 py-3.5 sm:px-5 sm:py-4">
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-accent-cyan/[0.07] to-transparent"
+                  aria-hidden
+                />
+                <div className="relative flex min-w-0 items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-accent-cyan/35 bg-gradient-to-br from-accent-cyan/20 via-accent-blue/15 to-transparent text-accent-cyan shadow-[0_0_24px_rgba(99,179,237,0.2)]">
+                    <FaBrain className="h-5 w-5" aria-hidden />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="font-heading text-sm font-bold tracking-tight text-white sm:text-base">
+                        Oussema AI Assistant
+                      </h3>
+                      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/35 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-300/95">
+                        <span
+                          className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]"
+                          aria-hidden
+                        />
+                        Online
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-[11px] leading-snug text-text-muted sm:text-xs">
+                      Ask about projects, skills, or how to get in touch.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-text-muted transition-colors hover:border-accent-cyan/40 hover:bg-accent-cyan/10 hover:text-accent-cyan"
+                  aria-label="Close chat"
                 >
-                  {msg.role === "assistant" && (
-                    <div className="h-6 w-6 rounded-full bg-accent-cyan/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-[10px] font-semibold tracking-wide text-accent-cyan">AI</span>
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-xs rounded-lg px-3 py-2 text-xs sm:text-sm leading-relaxed ${
-                      msg.role === "user"
-                        ? "bg-accent-cyan text-[#0a0f1e] rounded-br-none"
-                        : "bg-accent-cyan/10 text-text-primary rounded-bl-none"
-                    }`}
+                  <FaTimes size={14} />
+                </button>
+              </div>
+
+              {/* Messages */}
+              <div
+                ref={messagesScrollRef}
+                className="chat-modal-messages flex min-h-0 flex-1 flex-col space-y-3 overflow-y-auto scroll-smooth px-4 py-4 sm:px-5"
+              >
+                {messages.map((msg, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.28, ease: "easeOut" }}
+                    className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    <p>{msg.content}</p>
-                    <span className="text-[10px] opacity-60 mt-1 block">
-                      {formatTime(msg.timestamp)}
-                    </span>
-                  </div>
-                  {msg.role === "user" && (
-                    <div className="h-6 w-6 rounded-full bg-accent-blue/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <UserIcon />
+                    {msg.role === "assistant" && (
+                      <div
+                        className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-accent-cyan/25 bg-accent-cyan/10 text-[10px] font-bold tracking-wide text-accent-cyan"
+                        aria-hidden
+                      >
+                        AI
+                      </div>
+                    )}
+                    <div
+                      className={`chat-modal-bubble max-w-[min(100%,18.5rem)] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed sm:max-w-xs sm:text-[13px] ${
+                        msg.role === "user"
+                          ? "chat-modal-bubble--user rounded-br-md border border-white/10 bg-gradient-to-br from-accent-cyan to-[#4a9fd4] text-[#071018] shadow-[0_8px_24px_rgba(99,179,237,0.22)]"
+                          : "chat-modal-bubble--assistant rounded-bl-md border border-white/[0.08] bg-[rgba(99,179,237,0.07)] text-text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                      }`}
+                    >
+                      {msg.content ? (
+                        <p className="whitespace-pre-wrap">{msg.content}</p>
+                      ) : (
+                        msg.role === "assistant" &&
+                        idx === messages.length - 1 &&
+                        isLoading && (
+                          <span className="inline-flex gap-1 pt-0.5">
+                            <span className="chat-modal-stream-dot" />
+                            <span className="chat-modal-stream-dot chat-modal-stream-dot--d1" />
+                            <span className="chat-modal-stream-dot chat-modal-stream-dot--d2" />
+                          </span>
+                        )
+                      )}
+                      <span
+                        className={`mt-1.5 block text-[10px] ${
+                          msg.role === "user"
+                            ? "text-[#0a0f1e]/55"
+                            : "text-text-muted/75"
+                        }`}
+                      >
+                        {formatTime(msg.timestamp)}
+                      </span>
                     </div>
-                  )}
-                </motion.div>
-              ))}
-              
-              {isLoading && (
-                <div className="flex gap-2.5 justify-start">
-                  <div className="h-6 w-6 rounded-full bg-accent-cyan/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-[10px] font-semibold tracking-wide text-accent-cyan">AI</span>
-                  </div>
-                  <div className="bg-accent-cyan/10 text-text-primary rounded-lg rounded-bl-none px-3 py-2 flex gap-1">
-                    <span className="w-2 h-2 rounded-full bg-accent-cyan animate-bounce" />
-                    <span className="w-2 h-2 rounded-full bg-accent-cyan animate-bounce" style={{ animationDelay: "0.2s" }} />
-                    <span className="w-2 h-2 rounded-full bg-accent-cyan animate-bounce" style={{ animationDelay: "0.4s" }} />
+                    {msg.role === "user" && (
+                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-accent-blue/30 bg-accent-blue/15 text-accent-blue">
+                        <UserIcon />
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+
+              </div>
+
+              {/* Suggestions */}
+              {showSuggestions && (
+                <div className="shrink-0 border-t border-white/[0.06] bg-[rgba(0,0,0,0.12)] px-4 py-3 sm:px-5">
+                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+                    Quick prompts
+                  </p>
+                  <div className="flex max-h-[5.5rem] flex-wrap gap-2 overflow-y-auto pr-0.5 sm:max-h-none">
+                    {SUGGESTION_CHIPS.map((chip) => (
+                      <button
+                        key={chip}
+                        type="button"
+                        onClick={() => sendMessage(chip)}
+                        className="rounded-full border border-accent-cyan/30 bg-white/[0.03] px-3 py-1.5 text-left text-[11px] leading-snug text-accent-cyan/95 transition-colors hover:border-accent-cyan/55 hover:bg-accent-cyan/10 sm:text-xs"
+                      >
+                        {chip}
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
-            </div>
 
-            {/* Suggestions */}
-            {showSuggestions && (
-              <div className="border-t border-accent-cyan/20 px-4 py-3 sm:px-5">
-                <p className="text-xs text-text-muted mb-2">Suggestions:</p>
-                <div className="flex flex-wrap gap-2">
-                  {SUGGESTION_CHIPS.map((chip) => (
-                    <button
-                      key={chip}
-                      onClick={() => sendMessage(chip)}
-                      className="text-xs px-2.5 py-1.5 rounded-full border border-accent-cyan/40 hover:border-accent-cyan text-accent-cyan hover:bg-accent-cyan/10 transition-colors"
-                    >
-                      {chip}
-                    </button>
-                  ))}
+              {/* Input */}
+              <div className="shrink-0 border-t border-white/[0.07] bg-[rgba(4,8,18,0.65)] px-4 py-3 sm:px-5 sm:py-4">
+                <div className="flex items-center gap-2 rounded-2xl border border-accent-cyan/25 bg-[rgba(99,179,237,0.06)] p-1 pl-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-accent-cyan/45 focus-within:bg-[rgba(99,179,237,0.09)]">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Message the assistant…"
+                    disabled={isLoading}
+                    className="min-w-0 flex-1 bg-transparent py-2.5 text-xs text-text-primary placeholder:text-text-muted/45 focus:outline-none disabled:opacity-50 sm:text-sm"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => sendMessage()}
+                    disabled={isLoading || !input.trim()}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-cyan to-[#4a9fd4] text-[#051018] shadow-[0_6px_20px_rgba(99,179,237,0.35)] transition-[transform,opacity] hover:brightness-110 disabled:pointer-events-none disabled:opacity-35"
+                    aria-label="Send message"
+                  >
+                    <FaPaperPlane className="h-3.5 w-3.5" aria-hidden />
+                  </button>
                 </div>
               </div>
-            )}
-
-            {/* Input */}
-            <div className="border-t border-accent-cyan/20 px-4 py-3 sm:px-5 flex gap-2">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Ask me anything..."
-                disabled={isLoading}
-                className="flex-1 bg-accent-cyan/5 border border-accent-cyan/20 rounded-lg px-3 py-2 text-xs sm:text-sm text-text-primary placeholder-text-muted/50 focus:outline-none focus:border-accent-cyan/50 disabled:opacity-50"
-              />
-              <button
-                onClick={() => sendMessage()}
-                disabled={isLoading || !input.trim()}
-                className="h-9 px-3 rounded-lg bg-accent-cyan text-[#0a0f1e] font-semibold text-xs sm:text-sm hover:bg-accent-cyan/90 disabled:opacity-50 transition-colors flex items-center justify-center"
-              >
-                Send
-              </button>
             </div>
           </motion.div>
         </motion.div>
