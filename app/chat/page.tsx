@@ -35,9 +35,8 @@ export default function ChatPage() {
       <ChatModal
         isOpen={chatOpen}
         onClose={() => setChatOpen(false)}
-        fabPlacement="bottom"
       />
-      <AIAssistantButton onOpen={() => setChatOpen(true)} placement="bottom" />
+      <AIAssistantButton onOpen={() => setChatOpen(true)} />
     </>
   );
 }

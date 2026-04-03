@@ -73,10 +73,9 @@ export default function Home() {
           <ChatModal
             isOpen={chatOpen}
             onClose={() => setChatOpen(false)}
-            fabPlacement="bottom"
           />
           <TerminalButton onOpen={() => setTerminalOpen(true)} />
-          <AIAssistantButton onOpen={() => setChatOpen(true)} placement="bottom" />
+          <AIAssistantButton onOpen={() => setChatOpen(true)} />
         </>
       )}
       <BackToTopButton />

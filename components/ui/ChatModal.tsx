@@ -47,15 +47,9 @@ function formatTime(date: Date) {
 export type ChatModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  /** `mid`: dock beside a vertically centered FAB. `bottom`: above a bottom-right FAB. */
-  fabPlacement?: "mid" | "bottom";
 };
 
-export function ChatModal({
-  isOpen,
-  onClose,
-  fabPlacement = "bottom",
-}: ChatModalProps) {
+export function ChatModal({ isOpen, onClose }: ChatModalProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);

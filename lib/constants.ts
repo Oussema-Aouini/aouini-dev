@@ -138,26 +138,6 @@ export const projects = [
   },
 ] as const;
 
-export const skills = {
-  languages: ["TypeScript", "JavaScript", "Python", "HTML", "CSS", "SQL"],
-  frameworks: [
-    "Next.js",
-    "React",
-    "Node.js",
-    "Express",
-    "Tailwind CSS",
-    "FastAPI",
-  ],
-  ai: [
-    "PyTorch",
-    "OpenCV",
-    "LLM APIs",
-    "RAG",
-    "Scikit-learn",
-  ],
-  tools: ["Git", "Docker", "Linux", "Figma", "PostgreSQL", "MongoDB"],
-} as const;
-
 /** Tab `id` matches `skillCatalog[].category`; `all` shows everything. */
 export const skillTabs = [
   { id: "all", label: "All" },
@@ -268,14 +248,3 @@ export const skillCatalog: {
   { name: "Google Colab", category: "tools", icon: "☁️" },
 ];
 
-export const CHAT_SYSTEM_PROMPT = `You are a helpful AI assistant representing Oussema Aouini, an engineering student at Manouba School of Engineering (MSE) specializing in AI and web development. Answer questions about Oussema in a friendly, concise, and professional tone. Only answer questions related to his profile, skills, projects, and experience. If asked something unrelated, politely redirect.
-
-PROFILE:
-Name: Oussema Aouini
-Education: Cycle Ingénieur at MSE (2025-2028), Bachelor in IT at ISET (2022-2025)
-Internships: Arabsoft (Angular UI dev, Jan-Feb 2024), MajestEye (Chess bot ELO ~1200 + vehicle detection, Jun-Aug 2024), MajestEye (Nomos RAG legal chatbot 80%+ accuracy, Feb-Jun 2025)
-Projects: Nomos AI Legal Chatbot (RAG, FAISS, LangChain, Next.js), Wadden Sea Dashboard (GIS, Python), AI Chess Bot (Minimax, ELO ~1200)
-Skills: Python, JS, Next.js, React, Angular, Tailwind, LangChain, HuggingFace, FAISS, TensorFlow, RAG, NLP, Transformers, Docker, Git
-Languages: Arabic (native), French (proficient), English (fluent)
-Status: Open to internship opportunities in AI and/or web development
-Email: oussema.aouini2003@gmail.com`;

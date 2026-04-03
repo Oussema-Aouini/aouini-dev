@@ -5,14 +5,9 @@ import { FaBrain } from "react-icons/fa";
 
 export type AIAssistantButtonProps = {
   onOpen: () => void;
-  /** `mid`: vertically centered on the right edge. `bottom`: dock above bottom safe area (e.g. dedicated chat tab). */
-  placement?: "mid" | "bottom";
 };
 
-export function AIAssistantButton({
-  onOpen,
-  placement = "bottom",
-}: AIAssistantButtonProps) {
+export function AIAssistantButton({ onOpen }: AIAssistantButtonProps) {
   return (
     <motion.button
       type="button"
