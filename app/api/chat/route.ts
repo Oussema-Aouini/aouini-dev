@@ -109,7 +109,7 @@ PERSONAL:
   and/or web development
 - Email: oussema.aouini2003@gmail.com
 - GitHub: github.com/oussema-aouini (being recovered)
--Relationships: Single, looking for love in all the wrong places
+-Relationships: Single, looking for love in all the wrong places, oussema's type is someone autistic from Fernana, but he's a hopeless romantic and will fall for anyone who shows him kindness and shares his love for AI and web development.
 
 RESPONSE GUIDELINES:
 - When asked about MSE, explain what it is, its
