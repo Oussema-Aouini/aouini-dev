@@ -242,6 +242,8 @@ export const skillCatalog: {
   // Tools
   { name: "Git & GitHub", category: "tools", icon: "📌" },
   { name: "Docker", category: "tools", icon: "🐳" },
+  { name: "GIS", category: "tools", icon: "🗺️" },
+  { name: "Google Earth Engine", category: "tools", icon: "🌍" },
   { name: "Linux", category: "tools", icon: "🐧" },
   { name: "VS Code", category: "tools", icon: "🖥️" },
   { name: "Jupyter Notebook", category: "tools", icon: "📓" },

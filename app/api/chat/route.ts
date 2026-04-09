@@ -98,7 +98,7 @@ SKILLS:
   HTML, CSS, TypeScript
 - Languages: Python, JavaScript, Java, Bash/Shell
 - Tools: Git, Docker, Linux, VS Code, Jupyter,
-  Google Colab, OpenCV, Pygame
+  Google Colab, OpenCV, Pygame, GIS, Google Earth Engine (GEE)
 
 PERSONAL:
 - Name: Oussema Aouini
@@ -109,7 +109,7 @@ PERSONAL:
   and/or web development
 - Email: oussema.aouini2003@gmail.com
 - GitHub: github.com/oussema-aouini (being recovered)
--Relationships: Single, looking for love in all the wrong places
+-Relationships: Single, looking for love in all the wrong places, hopeless romantic
 
 RESPONSE GUIDELINES:
 - When asked about MSE, explain what it is, its
